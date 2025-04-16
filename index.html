@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro - Liga Nacional de Robótica</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="dark-mode">
+    <!-- Switch para cambio de tema con iconos mejorados -->
+    <div class="theme-switch-container">
+        <div class="theme-icon"><i class="fas fa-moon"></i></div>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+        <div class="theme-icon"><i class="fas fa-sun"></i></div>
+    </div>
+    
+    <div class="container">
+        <h1>Registro para el Campeonato LNR <i class="fas fa-robot"></i></h1>
+        
+        <form id="lnr-form">
+            <!-- Datos del Equipo -->
+            <div class="form-group">
+                <label for="nombre-equipo"><i class="fas fa-users"></i> Nombre del Equipo</label>
+                <input type="text" id="nombre-equipo" name="nombre-equipo" required maxlength="30" placeholder="Ingresa un nombre creativo para tu equipo">
+                <div class="valid-feedback"><i class="fas fa-check-circle"></i> Nombre válido</div>
+                <div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i> El nombre es obligatorio (máx. 30 caracteres)</div>
+            </div>
+
+            <div class="form-group">
+                <label for="institucion"><i class="fas fa-school"></i> Escuela/Institución</label>
+                <select id="institucion" name="institucion" required>
+                    <option value="">Seleccione una institución</option>
+                    <option value="EEST N.º 1 - Eduardo Ader">EEST N.º 1 - Eduardo Ader</option>
+                    <option value="EEST N.º 2">EEST N.º 2</option>
+                    <option value="EEST N.º 3">EEST N.º 3</option>
+                    <option value="EEST N.º 4">EEST N.º 4</option>
+                    <option value="otro">Otra Institución</option>
+                </select>
+                <div class="valid-feedback"><i class="fas fa-check-circle"></i> Institución seleccionada</div>
+                <div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i> Seleccione una institución</div>
+            </div>
+
+            <div id="otra-institucion-container" class="form-group" style="display: none;">
+                <label for="otra-institucion"><i class="fas fa-building"></i> Nombre de la Institución</label>
+                <input type="text" id="otra-institucion" name="otra-institucion" placeholder="Especifique el nombre de su institución">
+            </div>
+
+            <div class="form-group">
+                <label for="email"><i class="fas fa-envelope"></i> Email del Responsable</label>
+                <input type="email" id="email" name="email" required placeholder="responsable@institucion.edu.ar">
+                <div class="valid-feedback"><i class="fas fa-check-circle"></i> Email válido</div>
+                <div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i> Ingrese un email válido</div>
+            </div>
+
+            <div class="form-group">
+                <label for="estudiantes"><i class="fas fa-user-graduate"></i> Datos de Estudiantes del Equipo</label>
+                <textarea id="estudiantes" name="estudiantes" rows="3" required placeholder="Nombre, Apellido y DNI de cada estudiante (uno por línea)"></textarea>
+                <div class="valid-feedback"><i class="fas fa-check-circle"></i> Datos ingresados correctamente</div>
+                <div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i> Ingrese los datos de los estudiantes</div>
+            </div>
+
+            <div class="form-group">
+                <label for="foto-perfil"><i class="fas fa-camera"></i> Foto de Perfil del Equipo</label>
+                <div class="file-upload">
+                    <label for="foto-perfil" class="file-upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i> Seleccionar Foto (JPG/PNG, máx. 2MB)
+                    </label>
+                    <input type="file" id="foto-perfil" name="foto-perfil" accept=".jpg,.jpeg,.png" required>
+                </div>
+                <div class="foto-preview" id="foto
+                -preview-container">
+                    <img id="foto-preview" src="" alt="Vista previa de la foto">
+                </div>
+                <div class="valid-feedback"><i class="fas fa-check-circle"></i> Foto válida</div>
+                <div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i> Seleccione una foto válida (JPG/PNG, máx. 2MB)</div>
+            </div>
+
+            <div class="separator"></div>
+
+            <!-- Categorías de Competencia con tooltips mejorados -->
+            <div class="form-group">
+                <label><i class="fas fa-gamepad"></i> Categorías de Competencia</label>
+                <p style="font-size: 13px; color: var(--text-color); opacity: 0.7; margin-bottom: 15px;">Seleccione al menos una categoría para participar:</p>
+                <div class="categorias-container">
+                    <div class="categoria-item tooltip">
+                        <input type="checkbox" id="categoria-sumo" name="categorias" value="sumo" class="categoria-checkbox">
+                        <label for="categoria-sumo" class="categoria-label">Sumo</label>
+                        <span class="tooltip-text">Competencia de robots para empujar oponentes fuera del dohyo. Más potencia, más estrategia.</span>
+                    </div>
+                    <div class="categoria-item tooltip">
+                        <input type="checkbox" id="categoria-minisumo" name="categorias" value="minisumo" class="categoria-checkbox">
+                        <label for="categoria-minisumo" class="categoria-label">Minisumo</label>
+                        <span class="tooltip-text">Versión reducida del robot de sumo. Desafío técnico en tamaño compacto.</span>
+                    </div>
+                    <div class="categoria-item tooltip">
+                        <input type="checkbox" id="categoria-carrera" name="categorias" value="carrera" class="categoria-checkbox">
+                        <label for="categoria-carrera" class="categoria-label">Carrera</label>
+                        <span class="tooltip-text">Robot para seguir trayecto marcado en el menor tiempo posible. ¡Velocidad y precisión!</span>
+                    </div>
+                    <div class="categoria-item tooltip">
+                        <input type="checkbox" id="categoria-futbol" name="categorias" value="futbol" class="categoria-checkbox">
+                        <label for="categoria-futbol" class="categoria-label">Fútbol</label>
+                        <span class="tooltip-text">Robot para jugar fútbol en equipos. Coordinación y trabajo en equipo.</span>
+                    </div>
+                    <div class="categoria-item tooltip">
+                        <input type="checkbox" id="categoria-laberinto" name="categorias" value="laberinto" class="categoria-checkbox">
+                        <label for="categoria-laberinto" class="categoria-label">Laberinto</label>
+                        <span class="tooltip-text">Robot para resolver laberintos de forma autónoma. Algoritmos e inteligencia artificial aplicada.</span>
+                    </div>
+                    <div class="categoria-item tooltip">
+                        <input type="checkbox" id="categoria-microsumo" name="categorias" value="microsumo" class="categoria-checkbox">
+                        <label for="categoria-microsumo" class="categoria-label">Microsumo</label>
+                        <span class="tooltip-text">Versión micro del robot de sumo. El gran desafío en pequeña escala.</span>
+                    </div>
+                    <!-- Nueva categoría añadida -->
+                    <div class="categoria-item tooltip">
+                        <input type="checkbox" id="categoria-drones" name="categorias" value="drones" class="categoria-checkbox">
+                        <label for="categoria-drones" class="categoria-label">Drones</label>
+                        <span class="tooltip-text">Competencia de drones con obstáculos y pruebas de destreza. ¡Nueva categoría 2025!</span>
+                    </div>
+                    <!-- Nueva categoría añadida -->
+                    <div class="categoria-item tooltip">
+                        <input type="checkbox" id="categoria-rescate" name="categorias" value="rescate" class="categoria-checkbox">
+                        <label for="categoria-rescate" class="categoria-label">Rescate</label>
+                        <span class="tooltip-text">Robot de rescate para identificar y salvar objetivos. Desafío de alta complejidad.</span>
+                    </div>
+                </div>
+                <div class="valid-feedback"><i class="fas fa-check-circle"></i> Categorías seleccionadas correctamente</div>
+                <div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i> Seleccione al menos una categoría</div>
+            </div>
+
+            <div class="separator"></div>
+
+            <!-- Documentación Técnica mejorada -->
+            <div class="form-group">
+                <label for="diseno-robot"><i class="fas fa-drafting-compass"></i> Diseño del Robot</label>
+                <div class="file-upload">
+                    <label for="diseno-robot" class="file-upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i> Subir Archivo (PDF/JPG/PNG, máx. 5MB)
+                    </label>
+                    <input type="file" id="diseno-robot" name="diseno-robot" accept=".pdf,.jpg,.jpeg,.png" required>
+                </div>
+                <div class="file-preview" id="diseno-preview"></div>
+                <div class="valid-feedback"><i class="fas fa-check-circle"></i> Archivo subido correctamente</div>
+                <div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i> Seleccione un archivo válido (PDF/JPG/PNG, máx. 5MB)</div>
+            </div>
+
+            <div id="certificado-container" class="form-group" style="display: none;">
+                <label for="certificado"><i class="fas fa-shield-alt"></i> Certificado de Seguridad</label>
+                <div class="tooltip" style="display: inline-block; margin-left: 10px;">
+                    <i class="fas fa-info-circle" style="color: var(--accent-color);"></i>
+                    <span class="tooltip-text">Este certificado es obligatorio para robots de categorías de combate, garantizando que cumplen con las normativas de seguridad LNR-2025</span>
+                </div>
+                <div class="file-upload">
+                    <label for="certificado" class="file-upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i> Subir Certificado (PDF/JPG/PNG, máx. 2MB)
+                    </label>
+                    <input type="file" id="certificado" name="certificado" accept=".pdf,.jpg,.jpeg,.png">
+                </div>
+                <div class="file-preview" id="certificado-preview"></div>
+                <div class="valid-feedback"><i class="fas fa-check-circle"></i> Certificado válido</div>
+                <div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i> Certificado de seguridad obligatorio para Sumo/Minisumo</div>
+            </div>
+
+            <!-- Nueva sección añadida: Información de contacto de emergencia -->
+            <div class="form-group">
+                <label for="contacto-emergencia"><i class="fas fa-phone-alt"></i> Contacto de Emergencia</label>
+                <input type="tel" id="contacto-emergencia" name="contacto-emergencia" required pattern="[0-9]{10}" placeholder="Teléfono móvil (10 dígitos)">
+                <div class="valid-feedback"><i class="fas fa-check-circle"></i> Número válido</div>
+                <div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i> Ingrese un número de teléfono válido (10 dígitos)</div>
+            </div>
+
+            <!-- Nueva sección añadida: Fecha de competencia preferida -->
+            <div class="form-group">
+                <label for="fecha-preferida"><i class="fas fa-calendar-alt"></i> Fecha Preferida</label>
+                <select id="fecha-preferida" name="fecha-preferida" required>
+                    <option value="">Seleccione una fecha</option>
+                    <option value="2025-05-15">15 de Mayo 2025</option>
+                    <option value="2025-06-20">20 de Junio 2025</option>
+                    <option value="2025-07-10">10 de Julio 2025</option>
+                    <option value="cualquiera">Cualquier fecha disponible</option>
+                </select>
+                <div class="valid-feedback"><i class="fas fa-check-circle"></i> Fecha seleccionada</div>
+                <div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i> Seleccione una fecha</div>
+            </div>
+
+            <!-- Sección de términos y condiciones mejorada -->
+            <div class="form-group">
+                <div class="categoria-item">
+                    <input type="checkbox" id="acepto-reglas" name="acepto-reglas" required class="categoria-checkbox">
+                    <label for="acepto-reglas" class="categoria-label">Acepto las reglas del campeonato LNR 2025</label>
+                </div>
+                <div class="invalid-feedback"><i class="fas fa-exclamation-circle"></i> Debe aceptar las reglas para continuar</div>
+            </div>
+
+            <!-- Nueva sección: Newsletter -->
+            <div class="form-group">
+                <div class="categoria-item">
+                    <input type="checkbox" id="newsletter" name="newsletter" class="categoria-checkbox">
+                    <label for="newsletter" class="categoria-label">Deseo recibir actualizaciones sobre eventos futuros</label>
+                </div>
+            </div>
+
+            <div class="buttons-container">
+                <button type="submit" id="submit-btn" disabled>
+                    <i class="fas fa-rocket"></i> Registrar Equipo
+                </button>
+                <button type="reset" id="reset-btn">
+                    <i class="fas fa-broom"></i> Borrar
+                </button>
+            </div>
+        </form>
+
+        <div class="contador-container">
+            <p>Equipos registrados para la LNR 2025: <span id="contador-equipos">0</span></p>
+        </div>
+    </div>
+
+    <!-- Script para funcionalidad mejorada -->
+    <script>
+        // Función para cambiar el tema con animación mejorada
+        function toggleTheme() {
+            const body = document.body;
+            
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+                document.querySelector('.fa-moon').style.opacity = '0.3';
+                document.querySelector('.fa-sun').style.opacity = '1';
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                document.querySelector('.fa-moon').style.opacity = '1';
+                document.querySelector('.fa-sun').style.opacity = '0.3';
+            }
+        }
+
+        // Aplicar el tema guardado o usar el predeterminado con efecto visual
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            
+            if (savedTheme === 'light') {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                themeToggle.checked = true;
+                document.querySelector('.fa-moon').style.opacity = '0.3';
+                document.querySelector('.fa-sun').style.opacity = '1';
+            } else {
+                document.querySelector('.fa-moon').style.opacity = '1';
+                document.querySelector('.fa-sun').style.opacity = '0.3';
+            }
+            
+            themeToggle.addEventListener('change', toggleTheme);
+        });
+
+        // Variables globales
+        const form = document.getElementById('lnr-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const institucionSelect = document.getElementById('institucion');
+        const otraInstitucionContainer = document.getElementById('otra-institucion-container');
+        const otraInstitucion = document.getElementById('otra-institucion');
+        const categorias = document.querySelectorAll('input[name="categorias"]');
+        const certificadoContainer = document.getElementById('certificado-container');
+        const certificadoInput = document.getElementById('certificado');
+        const contadorEquipos = document.getElementById('contador-equipos');
+        
+        // Cargar el contador desde localStorage con animación
+        let equiposRegistrados = parseInt(localStorage.getItem('equiposRegistrados')) || 0;
+        contadorEquipos.textContent = equiposRegistrados;
+
+        // Función para validar el nombre del equipo
+        function validarNombreEquipo() {
+            const nombreEquipoInput = document.getElementById('nombre-equipo');
+            const valor = nombreEquipoInput.value.trim();
+            const esValido = valor.length > 0 && valor.length <= 30;
+            
+            nombreEquipoInput.classList.toggle('is-valid', esValido);
+            nombreEquipoInput.classList.toggle('is-invalid', !esValido);
+            nombreEquipoInput.nextElementSibling.style.display = esValido ? 'block' : 'none';
+            nombreEquipoInput.nextElementSibling.nextElementSibling.style.display = !esValido ? 'block' : 'none';
+            
+            return esValido;
+        }
+
+        // Función para validar la institución
+        function validarInstitucion() {
+            const esValido = institucionSelect.value !== '';
+            
+            institucionSelect.classList.toggle('is-valid', esValido);
+            institucionSelect.classList.toggle('is-invalid', !esValido);
+            institucionSelect.nextElementSibling.style.display = esValido ? 'block' : 'none';
+            institucionSelect.nextElementSibling.nextElementSibling.style.display = !esValido ? 'block' : 'none';
+            
+            // Mostrar/ocultar campo para otra institución con animación
+            if (institucionSelect.value === 'otro') {
+                otraInstitucionContainer.style.display = 'block';
+                setTimeout(() => {
+                    otraInstitucionContainer.style.opacity = 1;
+                    otraInstitucionContainer.style.transform = 'translateY(0)';
+                }, 10);
+            } else {
+                otraInstitucionContainer.style.opacity = 0;
+                otraInstitucionContainer.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    otraInstitucionContainer.style.display = 'none';
+                }, 300);
+            }
+            
+            return esValido;
+        }
+
+        // Función para validar el email con regex mejorado
+        function validarEmail() {
+            const emailInput = document.getElementById('email');
+            const valor = emailInput.value.trim();
+            const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            const esValido = regex.test(valor);
+            
+            emailInput.classList.toggle('is-valid', esValido);
+            emailInput.classList.toggle('is-invalid', !esValido);
+            emailInput.nextElementSibling.style.display = esValido ? 'block' : 'none';
+            emailInput.nextElementSibling.nextElementSibling.style.display = !esValido ? 'block' : 'none';
+            
+            return esValido;
+        }
+
+        // Función para validar los datos de estudiantes
+        function validarEstudiantes() {
+            const estudiantesInput = document.getElementById('estudiantes');
+            const valor = estudiantesInput.value.trim();
+            const esValido = valor.length > 0;
+            
+            estudiantesInput.classList.toggle('is-valid', esValido);
+            estudiantesInput.classList.toggle('is-invalid', !esValido);
+            estudiantesInput.nextElementSibling.style.display = esValido ? 'block' : 'none';
+            estudiantesInput.nextElementSibling.nextElementSibling.style.display = !esValido ? 'block' : 'none';
+            
+            return esValido;
+        }
+
+        // Función para validar la foto de perfil con preview mejorada
+        function validarFotoPerfil() {
+            const fotoInput = document.getElementById('foto-perfil');
+            const fotoPreviewContainer = document.getElementById('foto-preview-container');
+            const fotoPreview = document.getElementById('foto-preview');
+            
+            if (!fotoInput.files || !fotoInput.files[0]) {
+                fotoInput.parentElement.nextElementSibling.nextElementSibling.style.display = 'none';
+                fotoInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.style.display = 'block';
+                fotoPreviewContainer.style.display = 'none';
+                return false;
+            }
+            
+            const archivo = fotoInput.files[0];
+            const tiposPermitidos = ['image/jpeg', 'image/jpg', 'image/png'];
+            const tamanoMaximo = 2 * 1024 * 1024; // 2MB
+            
+            const esValidoTipo = tiposPermitidos.includes(archivo.type);
+            const esValidoTamano = archivo.size <= tamanoMaximo;
+            const esValido = esValidoTipo && esValidoTamano;
+            
+            fotoInput.parentElement.nextElementSibling.nextElementSibling.style.display = esValido ? 'block' : 'none';
+            fotoInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.style.display = !esValido ? 'block' : 'none';
+            
+            // Previsualizar la imagen con animación si es válida
+            if (esValido) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    fotoPreview.src = e.target.result;
+                    fotoPreviewContainer.style.display = 'block';
+                    setTimeout(() => {
+                        fotoPreviewContainer.style.opacity = 1;
+                        fotoPreviewContainer.style.transform = 'scale(1)';
+                    }, 10);
+                };
+                reader.readAsDataURL(archivo);
+            } else {
+                fotoPreviewContainer.style.opacity = 0;
+                fotoPreviewContainer.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    fotoPreviewContainer.style.display = 'none';
+                }, 300);
+            }
+            
+            return esValido;
+        }
+
+        // Función para validar las categorías con efectos visuales
+        function validarCategorias() {
+            const categoriasSeleccionadas = document.querySelectorAll('input[name="categorias"]:checked');
+            const esValido = categoriasSeleccionadas.length > 0;
+            
+            const contenedorCategorias = document.querySelector('.categorias-container').parentElement;
+            contenedorCategorias.querySelector('.valid-feedback').style.display = esValido ? 'block' : 'none';
+            contenedorCategorias.querySelector('.invalid-feedback').style.display = !esValido ? 'block' : 'none';
+            
+            // Mostrar/ocultar campo de certificado para sumo/minisumo con animación
+            const requiereCertificado = Array.from(categoriasSeleccionadas).some(
+                cat => cat.value === 'sumo' || cat.value === 'minisumo' || cat.value === 'microsumo'
+            );
+            
+            if (requiereCertificado) {
+                certificadoContainer.style.display = 'block';
+                setTimeout(() => {
+                    certificadoContainer.style.opacity = 1;
+                    certificadoContainer.style.transform = 'translateY(0)';
+                }, 10);
+            } else {
+                certificadoContainer.style.opacity = 0;
+                certificadoContainer.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    certificadoContainer.style.display = 'none';
+                }, 300);
+            }
+            
+            certificadoInput.required = requiereCertificado;
+            
+            return esValido;
+        }
+
+        // Función para validar el diseño del robot con previsualización mejorada
+        function validarDisenoRobot() {
+            const disenoInput = document.getElementById('diseno-robot');
+            const disenoPreview = document.getElementById('diseno-preview');
+            
+            if (!disenoInput.files || !disenoInput.files[0]) {
+                disenoInput.parentElement.nextElementSibling.nextElementSibling.style.display = 'none';
+                disenoInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.style.display = 'block';
+                return false;
+            }
+            
+            const archivo = disenoInput.files[0];
+            const tiposPermitidos = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+            const tamanoMaximo = 5 * 1024 * 1024; // 5MB
+            
+            const esValidoTipo = tiposPermitidos.includes(archivo.type);
+            const esValidoTamano = archivo.size <= tamanoMaximo;
+            const esValido = esValidoTipo && esValidoTamano;
+            
+            disenoInput.parentElement.nextElementSibling.nextElementSibling.style.display = esValido ? 'block' : 'none';
+            disenoInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.style.display = !esValido ? 'block' : 'none';
+            
+            // Previsualizar el archivo con animación
+            if (esValido) {
+                disenoPreview.innerHTML = '';
+                const previewItem = document.createElement('div');
+                previewItem.className = 'preview-item';
+                
+                if (archivo.type === 'application/pdf') {
+                    previewItem.innerHTML = `<i class="fas fa-file-pdf" style="color: #ff3e3e; font-size: 16px;"></i>
+                                            <span>${archivo.name} (${Math.round(archivo.size / 1024)} KB)</span>`;
+                } else {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.className = 'img-preview';
+                        img.src = e.target.result;
+                        previewItem.appendChild(img);
+                        previewItem.appendChild(document.createElement('span')).textContent = `${archivo.name} (${Math.round(archivo.size / 1024)} KB)`;
+                    };
+                    reader.readAsDataURL(archivo);
+                }
+                
+                // Agregar con animación
+                setTimeout(() => {
+                    disenoPreview.appendChild(previewItem);
+                    previewItem.style.animation = 'fadeInUp 0.5s ease forwards';
+                }, 100);
+            } else {
+                disenoPreview.innerHTML = '';
+            }
+            
+            return esValido;
+        }
+
+        // Función para validar el certificado de seguridad
+        function validarCertificado() {
+            if (certificadoContainer.style.display === 'none') {
+                return true; // No es necesario validar si no está visible
+            }
+            
+            const certificadoInput = document.getElementById('certificado');
+            const certificadoPreview = document.getElementById('certificado-preview');
+            
+            if (!certificadoInput.files || !certificadoInput.files[0]) {
+                certificadoInput.parentElement.nextElementSibling.nextElementSibling.style.display = 'none';
+                certificadoInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.style.display = 'block';
+                return false;
+            }
+            
+            const archivo = certificadoInput.files[0];
+            const tiposPermitidos = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+            const tamanoMaximo = 2 * 1024 * 1024; // 2MB
+            
+            const esValidoTipo = tiposPermitidos.includes(archivo.type);
+            const esValidoTamano = archivo.size <= tamanoMaximo;
+            const esValido = esValidoTipo && esValidoTamano;
+            
+            certificadoInput.parentElement.nextElementSibling.nextElementSibling.style.display = esValido ? 'block' : 'none';
+            certificadoInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.style.display = !esValido ? 'block' : 'none';
+            
+            // Previsualizar el archivo con animación
+            if (esValido) {
+                certificadoPreview.innerHTML = '';
+                const previewItem = document.createElement('div');
+                previewItem.className = 'preview-item';
+                
+                if (archivo.type === 'application/pdf') {
+                    previewItem.innerHTML = `<i class="fas fa-file-pdf" style="color: #ff3e3e; font-size: 16px;"></i>
+                                            <span>${archivo.name} (${Math.round(archivo.size / 1024)} KB)</span>`;
+                } else {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.className = 'img-preview';
+                        img.src = e.target.result;
+                        previewItem.appendChild(img);
+                        previewItem.appendChild(document.createElement('span')).textContent = `${archivo.name} (${Math.round(archivo.size / 1024)} KB)`;
+                    };
+                    reader.readAsDataURL(archivo);
+                }
+                
+                // Agregar con animación
+                setTimeout(() => {
+                    certificadoPreview.appendChild(previewItem);
+                    previewItem.style.animation = 'fadeInUp 0.5s ease forwards';
+                }, 100);
+            } else {
+                certificadoPreview.innerHTML = '';
+            }
+            
+            return esValido;
+        }
+
+        // Validar contacto de emergencia (nuevo campo)
+        function validarContactoEmergencia() {
+            const contactoInput = document.getElementById('contacto-emergencia');
+            const valor = contactoInput.value.trim();
+            const regex = /^[0-9]{10}$/;
+            const esValido = regex.test(valor);
+            
+            contactoInput.classList.toggle('is-valid', esValido);
+            contactoInput.classList.toggle('is-invalid', !esValido);
+            contactoInput.nextElementSibling.style.display = esValido ? 'block' : 'none';
+            contactoInput.nextElementSibling.nextElementSibling.style.display = !esValido ? 'block' : 'none';
+            
+            return esValido;
+        }
+
+        // Validar fecha preferida (nuevo campo)
+        function validarFecha() {
+            const fechaInput = document.getElementById('fecha-preferida');
+            const esValido = fechaInput.value !== '';
+            
+            fechaInput.classList.toggle('is-valid', esValido);
+            fechaInput.classList.toggle('is-invalid', !esValido);
+            fechaInput.nextElementSibling.style.display = esValido ? 'block' : 'none';
+            fechaInput.nextElementSibling.nextElementSibling.style.display = !esValido ? 'block' : 'none';
+            
+            return esValido;
+        }
+
+        // Función para comprobar si se aceptan las reglas
+        function validarReglas() {
+            const reglasCheckbox = document.getElementById('acepto-reglas');
+            const esValido = reglasCheckbox.checked;
+            
+            const invalidFeedback = reglasCheckbox.parentElement.nextElementSibling;
+            invalidFeedback.style.display = !esValido ? 'block' : 'none';
+            
+            return esValido;
+        }
+
+        // Función para validar todo el formulario y activar/desactivar botón
+        function validarFormulario() {
+            const esValidoNombre = validarNombreEquipo();
+            const esValidaInstitucion = validarInstitucion();
+            const esValidoEmail = validarEmail();
+            const esValidoEstudiantes = validarEstudiantes();
+            const esValidaFoto = validarFotoPerfil();
+            const esValidasCategorias = validarCategorias();
+            const esValidoDiseno = validarDisenoRobot();
+            const esValidoCertificado = validarCertificado();
+            const esValidoContacto = validarContactoEmergencia();
+            const esValidaFecha = validarFecha();
+            const reglasAceptadas = validarReglas();
+            
+            const formularioValido = esValidoNombre && 
+                                    esValidaInstitucion && 
+                                    esValidoEmail && 
+                                    esValidoEstudiantes && 
+                                    esValidaFoto && 
+                                    esValidasCategorias && 
+                                    esValidoDiseno && 
+                                    esValidoCertificado && 
+                                    esValidoContacto && 
+                                    esValidaFecha && 
+                                    reglasAceptadas;
+            
+            submitBtn.disabled = !formularioValido;
+            
+            // Efecto visual para el botón
+            if (formularioValido) {
+                submitBtn.classList.add('ready');
+                submitBtn.style.animation = 'pulse 2s infinite';
+            } else {
+                submitBtn.classList.remove('ready');
+                submitBtn.style.animation = 'none';
+            }
+            
+            return formularioValido;
+        }
+
+        // Eventos de validación en tiempo real
+        document.getElementById('nombre-equipo').addEventListener('input', function() {
+            validarNombreEquipo();
+            validarFormulario();
+        });
+        
+        institucionSelect.addEventListener('change', function() {
+            validarInstitucion();
+            validarFormulario();
+        });
+
+    // Campos faltantes que deben activar la validación del formulario
+    document.getElementById('email').addEventListener('input', validarFormulario);
+    document.getElementById('estudiantes').addEventListener('input', validarFormulario);
+    document.getElementById('foto-perfil').addEventListener('change', validarFormulario);
+    document.getElementById('diseno-robot').addEventListener('change', validarFormulario);
+    document.getElementById('certificado').addEventListener('change', validarFormulario);
+    document.getElementById('contacto-emergencia').addEventListener('input', validarFormulario);
+    document.getElementById('fecha-preferida').addEventListener('change', validarFormulario);
+    document.getElementById('acepto-reglas').addEventListener('change', validarFormulario);
+
+    // Validar categorías (y certificado) cuando cambian
+    document.querySelectorAll('input[name="categorias"]').forEach(cat => {
+        cat.addEventListener('change', () => {
+            validarCategorias();
+            validarFormulario();
+        });
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        if (!validarFormulario()) return;
+
+        // Mostrar estado de envío
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        submitBtn.disabled = true;
+
+        // Simular envío exitoso con delay
+        setTimeout(() => {
+            // Mensaje de éxito
+            alert("🎉 ¡El equipo fue registrado exitosamente!");
+
+            // Incrementar contador
+            equiposRegistrados += 1;
+            localStorage.setItem('equiposRegistrados', equiposRegistrados);
+            contadorEquipos.textContent = equiposRegistrados;
+
+            // Resetear formulario
+            form.reset();
+            document.querySelectorAll('.is-valid, .is-invalid').forEach(el => {
+                el.classList.remove('is-valid', 'is-invalid');
+            });
+
+            // Ocultar previews y campos condicionales
+            document.getElementById('foto-preview-container').style.display = 'none';
+            document.getElementById('diseno-preview').innerHTML = '';
+            document.getElementById('certificado-preview').innerHTML = '';
+            certificadoContainer.style.display = 'none';
+            otraInstitucionContainer.style.display = 'none';
+
+            // Restaurar botón
+            submitBtn.innerHTML = '<i class="fas fa-rocket"></i> Registrar Equipo';
+            submitBtn.disabled = true;
+            submitBtn.classList.remove('ready');
+        }, 2000);
+    });
+</script>
